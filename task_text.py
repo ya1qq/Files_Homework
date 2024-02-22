@@ -1,13 +1,17 @@
+import os
 
-file_path1 = 'sorted/1.txt'
-file_path2 = 'sorted/2.txt'
-file_path3 = 'sorted/3.txt'
+def get_txt_files(dir):
+  txt_files = []
+  for file in os.listdir(dir):
+    if file.endswith('.txt'):
+      txt_files.append(os.path.join(dir, file))
+  return txt_files
 
-def get_linecount(file_name):
-  with open(file_name, encoding='utf-8') as f:
+def get_linecount(file_path):
+  with open(file_path, encoding='utf-8') as f:
     return len(f.readlines())
 
-sorted_files = sorted([file_path1, file_path2, file_path3], key=get_linecount)
+sorted_files = sorted(get_txt_files('sorted'), key=get_linecount)
 
 with open('new_file.txt', 'w', encoding='utf-8') as f:
   for file_path in sorted_files:
@@ -19,6 +23,7 @@ with open('new_file.txt', encoding='utf-8') as f:
   content = f.read()
 
 print(content)
+
 
 
 
